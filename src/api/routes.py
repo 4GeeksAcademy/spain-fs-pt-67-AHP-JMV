@@ -168,7 +168,6 @@ def resetPassword():
 @api.route('/pizzas', methods = ['POST'])
 def get_pizzas(): 
     request_body = request.get_json()
-    print(request_body)
     if request_body == {} or request_body["ingredients"] == []:
         pizzas = Pizza.query.all()
         pizzas_serialized = list(map(lambda item:item.serialize(), pizzas))
@@ -200,7 +199,6 @@ def get_pizzas():
 
         somaething= []
         for pizza_id_final, times in pizza_count.items():
-            print(times == len(ingredients))
             if times == len(ingredients):
                 somaething.append(pizza_id_final)
 
@@ -216,7 +214,7 @@ def get_pizzas():
             "data": data
         }), 200
 
-@api.route('/pizzas', methods=['POST'])    
+@api.route('/pizzas_upload', methods=['POST'])    
 def add_pizza():
     file = request.files['file']
     if file.filename == '':

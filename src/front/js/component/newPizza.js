@@ -6,19 +6,21 @@ export const NewPizza  = () => {
     
     const navigate = useNavigate()
     const {actions} = useContext(Context)
-    const [photo, setPhoto] = useState("")
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
     const [type, setType] = useState("")
 
    
-    const handleLogin = async(e) => {
+    const uploadPizza = async(e) => {
+        e.preventDefault()
         const photoImput = document.getElementById("pizza_img") 
         const photo = photoImput.files[0]
         const token = localStorage.getItem("token")
-
-        e.preventDefault()
+        console.log(type)
+        console.log(price)
+        console.log(description)
+        console.log(photo)
         const addPizza = await actions.upload_pizza(name, description, price, photo, type, token)
         if (addPizza == true){
             navigate("/home")
@@ -28,16 +30,15 @@ export const NewPizza  = () => {
     return (
         <div className="container d-flex flex-column align-items-center">
             <h2 className="dashboard-title mt-5">Upload pizzas dashboard</h2>
-            <form onSubmit={handleLogin} className="container justify-content-center d-flex h-100 align-items-center">
+            <form onSubmit={uploadPizza} className="container justify-content-center d-flex h-100 align-items-center">
                 <div className="login p-4 mt-5">
                     <div className="mb-3">
                         <input 
                             type="file" 
                             name='file' 
                             id="pizza_img" 
-                            onChange={(e)=>{setPhoto(e.target.value)}} 
                         />
-                        <span className="file-name">{photo}</span> 
+                        <span className="file-name"></span> 
                         <input 
                             type="text" 
                             name='name' 
@@ -58,7 +59,7 @@ export const NewPizza  = () => {
                         />
                         <select 
                             name='type' 
-                            onChange={(e)=>{setType(e.target.value.toLowerCase())}} 
+                            onChange={(e)=>{setType(e.target.value)}} 
                         >
                             <option value="">Select pizza type</option>
                             <option value="classic">Classic</option>

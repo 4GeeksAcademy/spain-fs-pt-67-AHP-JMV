@@ -319,16 +319,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				formData.append('description', description)
 				formData.append('pizza_type', pizzaType)
 				try{
-					let response = await fetch (`${process.env.BACKEND_URL}api/pizzas`, {
+					let response = await fetch (`${process.env.BACKEND_URL}api/pizzas_upload`, {
 						method: "POST",
 						headers: {
 							'Authorization': 'Bearer ' + token 
 						},
 						body: formData
 					})
+					
 					const data = await response.json()
-					return 
+					return true
 				} catch (error) {
+					console.log("data");
 					return false
 				}
 			},
