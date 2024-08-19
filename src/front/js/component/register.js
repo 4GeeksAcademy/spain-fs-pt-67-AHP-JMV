@@ -15,6 +15,7 @@ export const Register  = () => {
     const handleLogin = async(e) => {
         e.preventDefault()
         const registered = await actions.register(firstname, lastname, email, password)
+        console.log(registered)
         if (registered == true){
             navigate("/home")
         }
